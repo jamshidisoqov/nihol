@@ -1,0 +1,124 @@
+name: nihol_app
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  auto_route: ^7.8.4
+  flutter_svg: ^2.0.7
+  lottie: ^3.0.0
+  cupertino_icons: ^1.0.2
+  audioplayers: ^5.2.1
+  permission_handler: ^11.2.0
+  shared_preferences: ^2.2.2
+  mobile_scanner: ^3.5.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  locale_gen: ^12.0.0
+  flutter_gen_runner: ^5.2.0
+  flutter_lints: ^3.0.1
+  auto_route_generator: ^7.3.1
+  build_runner: ^2.4.6
+  #retrofit_generator: ^7.0.8
+  flutter_launcher_icons: ^0.13.1
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+    - assets/
+    - assets/jpg/
+    - assets/png/
+    - assets/animation/birds.json
+    - assets/fairy_tale/axil_chumchuqlar/
+    - assets/fairy_tale/baxt_siri/
+    - assets/fairy_tale/botir_chaqimchi/
+    - assets/fairy_tale/dangasa_jek/
+    - assets/fairy_tale/ip_igna_angishvona/
+    - assets/fairy_tale/it_bori_tulki/
+    - assets/fairy_tale/jek_baxti/
+    - assets/fairy_tale/jonni_kulcha/
+    - assets/fairy_tale/kekkaygan_sichqon/
+    - assets/fairy_tale/mogor_non/
+    - assets/fairy_tale/nafs/
+    - assets/fairy_tale/ogri_hakka/
+    - assets/fairy_tale/orgimchak_haqida_ertak/
+    - assets/fairy_tale/ot_va_eshshak/
+    - assets/fairy_tale/piyola_tuz/
+    - assets/fairy_tale/qaldirgoch_tarbiyasi/
+    - assets/fairy_tale/supurgi_hokondoz/
+    - assets/fairy_tale/suv_rangi/
+    - assets/fairy_tale/tulki_miqqiy/
+    - assets/fairy_tale/uch_tilak/
+    - assets/fairy_tale/xoroz_tulki/
+    - assets/fairy_tale/yashiringan_aqil/
+      #images
+    - assets/fairy_tale/axil_chumchuqlar/pages/
+    - assets/fairy_tale/baxt_siri/pages/
+    - assets/fairy_tale/botir_chaqimchi/pages/
+    - assets/fairy_tale/dangasa_jek/pages/
+    - assets/fairy_tale/ip_igna_angishvona/pages/
+    - assets/fairy_tale/it_bori_tulki/pages/
+    - assets/fairy_tale/jek_baxti/pages/
+    - assets/fairy_tale/jonni_kulcha/pages/
+    - assets/fairy_tale/kekkaygan_sichqon/pages/
+    - assets/fairy_tale/mogor_non/pages/
+    - assets/fairy_tale/nafs/pages/
+    - assets/fairy_tale/ogri_hakka/pages/
+    - assets/fairy_tale/orgimchak_haqida_ertak/pages/
+    - assets/fairy_tale/ot_va_eshshak/pages/
+    - assets/fairy_tale/piyola_tuz/pages/
+    - assets/fairy_tale/qaldirgoch_tarbiyasi/pages/
+    - assets/fairy_tale/supurgi_hokondoz/pages/
+    - assets/fairy_tale/suv_rangi/pages/
+    - assets/fairy_tale/tulki_miqqiy/pages/
+    - assets/fairy_tale/uch_tilak/pages/
+    - assets/fairy_tale/xoroz_tulki/pages/
+    - assets/fairy_tale/yashiringan_aqil/pages/
+
+  fonts:
+    - family: CaveatBrush-Regular
+      fonts:
+        - asset: assets/fonts/CaveatBrush-Regular.ttf
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+locale_gen:
+  output_path: 'lib/gen/'
