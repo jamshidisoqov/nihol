@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Employee app',
+      title: 'Nihol app',
       debugShowCheckedModeBanner: false,
       routerConfig: _router.config(),
     );
