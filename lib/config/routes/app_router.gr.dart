@@ -16,7 +16,7 @@ import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details
     as _i1;
 import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
     as _i2;
-import 'package:nihol_app/features/qr_scanner/presentation/qr_scanner_page.dart'
+import 'package:nihol_app/features/qr_scanner/presentation/pages/qr_scanner_page.dart'
     as _i3;
 import 'package:nihol_app/features/splash/presentation/pages/splash_page.dart'
     as _i4;

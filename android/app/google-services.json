@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "449068632253",
+    "firebase_url": "https://fairy-tale-uz-default-rtdb.firebaseio.com",
+    "project_id": "fairy-tale-uz",
+    "storage_bucket": "fairy-tale-uz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449068632253:android:8761bf33073bb9ced20fd4",
+        "android_client_info": {
+          "package_name": "com.example.nihol_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJUQCJPDFTY3S0PJchrcsSsZyEYttvC8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

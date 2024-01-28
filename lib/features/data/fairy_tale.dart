@@ -8,4 +8,5 @@ class FairyTale {
 
   const FairyTale({required this.id, required this.titles, required this.titleId, required this.musics, required this.qrCodes, required this.pics});
 
+
 }

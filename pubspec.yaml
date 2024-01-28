@@ -32,12 +32,24 @@ dependencies:
     sdk: flutter
   auto_route: ^7.8.4
   flutter_svg: ^2.0.7
+
   lottie: ^3.0.0
   cupertino_icons: ^1.0.2
   audioplayers: ^5.2.1
   permission_handler: ^11.2.0
   shared_preferences: ^2.2.2
   mobile_scanner: ^3.5.6
+  flutter_bloc: ^8.1.3
+  get_it: ^7.6.7
+  firebase_storage: ^11.6.0
+  firebase_database: ^10.4.0
+  freezed: ^2.3.2
+  freezed_annotation: ^2.2.0
+  cached_network_image: ^3.3.1
+  dartz: ^0.10.1
+  json_serializable:
+  json_annotation:
+  firebase_core: ^2.24.2
 
 dev_dependencies:
   flutter_test:
@@ -66,52 +78,6 @@ flutter:
     - assets/
     - assets/jpg/
     - assets/png/
-    - assets/animation/birds.json
-    - assets/fairy_tale/axil_chumchuqlar/
-    - assets/fairy_tale/baxt_siri/
-    - assets/fairy_tale/botir_chaqimchi/
-    - assets/fairy_tale/dangasa_jek/
-    - assets/fairy_tale/ip_igna_angishvona/
-    - assets/fairy_tale/it_bori_tulki/
-    - assets/fairy_tale/jek_baxti/
-    - assets/fairy_tale/jonni_kulcha/
-    - assets/fairy_tale/kekkaygan_sichqon/
-    - assets/fairy_tale/mogor_non/
-    - assets/fairy_tale/nafs/
-    - assets/fairy_tale/ogri_hakka/
-    - assets/fairy_tale/orgimchak_haqida_ertak/
-    - assets/fairy_tale/ot_va_eshshak/
-    - assets/fairy_tale/piyola_tuz/
-    - assets/fairy_tale/qaldirgoch_tarbiyasi/
-    - assets/fairy_tale/supurgi_hokondoz/
-    - assets/fairy_tale/suv_rangi/
-    - assets/fairy_tale/tulki_miqqiy/
-    - assets/fairy_tale/uch_tilak/
-    - assets/fairy_tale/xoroz_tulki/
-    - assets/fairy_tale/yashiringan_aqil/
-      #images
-    - assets/fairy_tale/axil_chumchuqlar/pages/
-    - assets/fairy_tale/baxt_siri/pages/
-    - assets/fairy_tale/botir_chaqimchi/pages/
-    - assets/fairy_tale/dangasa_jek/pages/
-    - assets/fairy_tale/ip_igna_angishvona/pages/
-    - assets/fairy_tale/it_bori_tulki/pages/
-    - assets/fairy_tale/jek_baxti/pages/
-    - assets/fairy_tale/jonni_kulcha/pages/
-    - assets/fairy_tale/kekkaygan_sichqon/pages/
-    - assets/fairy_tale/mogor_non/pages/
-    - assets/fairy_tale/nafs/pages/
-    - assets/fairy_tale/ogri_hakka/pages/
-    - assets/fairy_tale/orgimchak_haqida_ertak/pages/
-    - assets/fairy_tale/ot_va_eshshak/pages/
-    - assets/fairy_tale/piyola_tuz/pages/
-    - assets/fairy_tale/qaldirgoch_tarbiyasi/pages/
-    - assets/fairy_tale/supurgi_hokondoz/pages/
-    - assets/fairy_tale/suv_rangi/pages/
-    - assets/fairy_tale/tulki_miqqiy/pages/
-    - assets/fairy_tale/uch_tilak/pages/
-    - assets/fairy_tale/xoroz_tulki/pages/
-    - assets/fairy_tale/yashiringan_aqil/pages/
 
   fonts:
     - family: CaveatBrush-Regular

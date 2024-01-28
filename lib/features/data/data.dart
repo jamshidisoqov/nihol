@@ -275,6 +275,7 @@ const List<FairyTale> FAIRY_TALE_DATA = [
       'ToSuRaUz12',
     ],
     titles: [
+
       'Horse and donkey',
       'Конь и осёл',
       'Ot va eshshak',
