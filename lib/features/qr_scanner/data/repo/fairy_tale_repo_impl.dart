@@ -13,9 +13,13 @@ class FairyTaleRepoImpl extends FairyTaleRepo {
   FairyTaleRepoImpl({required this.remoteSource});
 
   @override
-  Future<Either<Failure, FairyTaleDto>> getTale(String qrCode) {
-    // TODO: implement getTales
-    throw UnimplementedError();
+  Future<Either<Failure, FairyTaleDto>> getTale(String qrCode) async {
+    try {
+      final data = await remoteSource.getTale(qrCode);
+      return Right(data);
+    } on ServerFailure catch (e) {
+      return Left(e);
+    }
   }
 
   @override

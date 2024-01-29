@@ -50,6 +50,7 @@ dependencies:
   json_serializable:
   json_annotation:
   firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.10
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,7 @@ flutter:
     - assets/
     - assets/jpg/
     - assets/png/
+    - assets/animation/
 
   fonts:
     - family: CaveatBrush-Regular

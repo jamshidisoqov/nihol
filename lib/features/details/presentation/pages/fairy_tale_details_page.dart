@@ -2,23 +2,25 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nihol_app/core/resources/enums.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../core/widgets/w_appbar.dart';
-import '../../../../core/widgets/w_background.dart';
-import '../../../../core/widgets/w_item_container.dart';
-import '../../../data/fairy_tale.dart';
+import '/features/qr_scanner/data/model/fairy_tale_dto.dart';
+import '/core/widgets/w_appbar.dart';
+import '/core/widgets/w_background.dart';
 import '../../../home/presentation/pages/home_page.dart';
+import '../../../qr_scanner/presentation/bloc/fairy_tale_bloc.dart';
 import '../widgets/w_play_buttons.dart';
 import '../widgets/w_progress.dart';
 
 @RoutePage()
 class FairyTalePage extends StatefulWidget {
-  final FairyTale fairyTale;
-  final int? index;
+  final String? qrCode;
+  final FairyTaleState state;
 
-  const FairyTalePage({super.key, required this.fairyTale, this.index});
+  const FairyTalePage({super.key, required this.qrCode, required this.state});
 
   @override
   State<FairyTalePage> createState() => _FairyTalePageState();
@@ -27,6 +29,7 @@ class FairyTalePage extends StatefulWidget {
 class _FairyTalePageState extends State<FairyTalePage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  late FairyTaleDto? fairyTale;
   late List<String> images;
   late List<String> playlist;
   int currentTrackIndex = 0;
@@ -39,6 +42,7 @@ class _FairyTalePageState extends State<FairyTalePage>
   late Animation<double> animation;
   late AnimationController animationController;
   late int totalSeconds;
+  late int index = 0;
   late int count = 0;
   late int t = 0;
 
@@ -46,16 +50,17 @@ class _FairyTalePageState extends State<FairyTalePage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
-    playlist = widget.fairyTale.musics;
-    images = widget.fairyTale.pics;
-    currentMusicIndex = widget.index ?? 2;
+    fairyTale = widget.state.fairyTale;
+    index = widget.state.fairyTale?.qrCodes?.indexOf(widget.qrCode ?? '') ?? 0;
+    playlist = fairyTale?.musics ?? [];
+    images = fairyTale?.pics ?? [];
+    currentMusicIndex = index;
     _audioPlayer.onDurationChanged.listen((Duration d) {
       setState(() {
         duration = d;
         totalSeconds = d.inSeconds;
-        count = totalSeconds ~/ widget.fairyTale.pics.length;
-        t = totalSeconds ~/ widget.fairyTale.pics.length;
+        count = totalSeconds ~/ images.length;
+        t = totalSeconds ~/ images.length;
       });
     });
     _audioPlayer.onPositionChanged.listen((Duration p) {
@@ -83,6 +88,7 @@ class _FairyTalePageState extends State<FairyTalePage>
     animation.addListener(() => setState(() {}));
     animationController.forward();
     audioPlayer.stop();
+    initPrefs();
   }
 
   void initPrefs() async {
@@ -95,7 +101,6 @@ class _FairyTalePageState extends State<FairyTalePage>
   @override
   void dispose() {
     super.dispose();
-    initPrefs();
     WidgetsBinding.instance.removeObserver(this);
 
     _audioPlayer.dispose();
@@ -105,11 +110,11 @@ class _FairyTalePageState extends State<FairyTalePage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if ((state == AppLifecycleState.resumed)) {
-      if(isPlay){
+      if (isPlay) {
         play();
       }
     } else if (state == AppLifecycleState.paused) {
-      if(isPlay){
+      if (isPlay) {
         pause();
       }
     }
@@ -117,7 +122,7 @@ class _FairyTalePageState extends State<FairyTalePage>
 
   Future<void> play() async {
     _audioPlayer.play(AssetSource(
-        'fairy_tale/${widget.fairyTale.titleId}/${playlist[currentMusicIndex]}'));
+        'fairy_tale/${fairyTale?.titleId}/${playlist[currentMusicIndex]}'));
     setState(() {
       isPlay = true;
     });
@@ -165,12 +170,14 @@ class _FairyTalePageState extends State<FairyTalePage>
                 child: Column(
                   children: [
                     WAppBar(
-                      title: widget.fairyTale.titles[currentMusicIndex]
-                          .toUpperCase(),
+                      title: fairyTale?.titles?[currentMusicIndex]
+                          .toUpperCase() ??
+                          '',
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -182,11 +189,13 @@ class _FairyTalePageState extends State<FairyTalePage>
                                 height: 250,
                                 child: FadeTransition(
                                   key: ValueKey<int>(currentImageIndex),
-                                  opacity: const AlwaysStoppedAnimation(1.0),
-                                  child: WItemContainer(
-                                    imagePath:
-                                        '$basePath${widget.fairyTale.titleId}/pages/${images[currentImageIndex]}',
-                                  ),
+                                  opacity:
+                                  const AlwaysStoppedAnimation(1.0),
+                                  child: Container(),
+                                  // WItemContainer(
+                                  //   imagePath:
+                                  //       '$basePath${fairyTale?.titleId}/pages/${images[currentImageIndex]}',
+                                  // ),
                                 ),
                               ),
                             ),

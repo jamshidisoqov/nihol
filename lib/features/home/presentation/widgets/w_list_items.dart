@@ -36,9 +36,9 @@ class WListItems extends StatelessWidget {
                 Future.delayed(
                   const Duration(milliseconds: 100),
                   () {
-                    context.router.push(
-                      FairyTaleRoute(fairyTale: fairyTale),
-                    );
+                    // context.router.push(
+                    //   FairyTaleRoute(fairyTale: fairyTale),
+                    // );
                   },
                 );
               },

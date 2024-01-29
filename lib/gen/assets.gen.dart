@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsAnimationGen {
+  const $AssetsAnimationGen();
+
+  /// File path: assets/animation/birds.json
+  String get birds => 'assets/animation/birds.json';
+
+  /// List of all assets
+  List<String> get values => [birds];
+}
+
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
@@ -123,6 +133,7 @@ class $AssetsPngGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationGen animation = $AssetsAnimationGen();
   static const String backgroundMusic = 'assets/background_music.mp3';
   static const String click = 'assets/click.mp3';
   static const $AssetsFontsGen fonts = $AssetsFontsGen();

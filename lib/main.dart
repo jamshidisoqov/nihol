@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'config/routes/app_router.dart';
 import 'core/di/di_container.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+
   await setupDI();
   runApp(MyApp());
 }

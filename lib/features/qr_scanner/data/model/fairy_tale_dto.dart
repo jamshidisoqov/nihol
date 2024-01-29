@@ -9,7 +9,7 @@ class FairyTaleDto with _$FairyTaleDto {
     List<String>? titles,
     String? titleId,
     List<String>? musics,
-    List<String>? qrCode,
+    List<String>? qrCodes,
     List<String>? pics,
   }) = _FairyTaleDto;
 

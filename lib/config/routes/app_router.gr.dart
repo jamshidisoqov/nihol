@@ -11,11 +11,12 @@
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/cupertino.dart' as _i8;
 import 'package:flutter/material.dart' as _i6;
-import 'package:nihol_app/features/data/fairy_tale.dart' as _i7;
 import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details_page.dart'
     as _i1;
 import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
     as _i2;
+import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart'
+    as _i7;
 import 'package:nihol_app/features/qr_scanner/presentation/pages/qr_scanner_page.dart'
     as _i3;
 import 'package:nihol_app/features/splash/presentation/pages/splash_page.dart'
@@ -33,8 +34,8 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         routeData: routeData,
         child: _i1.FairyTalePage(
           key: args.key,
-          fairyTale: args.fairyTale,
-          index: args.index,
+          qrCode: args.qrCode,
+          state: args.state,
         ),
       );
     },
@@ -51,7 +52,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
     QScannerRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.QScannerPage(),
+        child: _i5.WrappedRoute(child: const _i3.QScannerPage()),
       );
     },
     SplashRoute.name: (routeData) {
@@ -68,15 +69,15 @@ abstract class $AppRouter extends _i5.RootStackRouter {
 class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
   FairyTaleRoute({
     _i6.Key? key,
-    required _i7.FairyTale fairyTale,
-    int? index,
+    required String? qrCode,
+    required _i7.FairyTaleState state,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
           args: FairyTaleRouteArgs(
             key: key,
-            fairyTale: fairyTale,
-            index: index,
+            qrCode: qrCode,
+            state: state,
           ),
           initialChildren: children,
         );
@@ -90,19 +91,19 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
 class FairyTaleRouteArgs {
   const FairyTaleRouteArgs({
     this.key,
-    required this.fairyTale,
-    this.index,
+    required this.qrCode,
+    required this.state,
   });
 
   final _i6.Key? key;
 
-  final _i7.FairyTale fairyTale;
+  final String? qrCode;
 
-  final int? index;
+  final _i7.FairyTaleState state;
 
   @override
   String toString() {
-    return 'FairyTaleRouteArgs{key: $key, fairyTale: $fairyTale, index: $index}';
+    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, state: $state}';
   }
 }
 
