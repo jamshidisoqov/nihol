@@ -32,11 +32,12 @@ abstract class $AppRouter extends _i5.RootStackRouter {
       final args = routeData.argsAs<FairyTaleRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.FairyTalePage(
+        child: _i5.WrappedRoute(
+            child: _i1.FairyTalePage(
           key: args.key,
           qrCode: args.qrCode,
-          state: args.state,
-        ),
+          bloc: args.bloc,
+        )),
       );
     },
     HomeRoute.name: (routeData) {
@@ -70,14 +71,14 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
   FairyTaleRoute({
     _i6.Key? key,
     required String? qrCode,
-    required _i7.FairyTaleState state,
+    required _i7.FairyTaleBloc bloc,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
           args: FairyTaleRouteArgs(
             key: key,
             qrCode: qrCode,
-            state: state,
+            bloc: bloc,
           ),
           initialChildren: children,
         );
@@ -92,18 +93,18 @@ class FairyTaleRouteArgs {
   const FairyTaleRouteArgs({
     this.key,
     required this.qrCode,
-    required this.state,
+    required this.bloc,
   });
 
   final _i6.Key? key;
 
   final String? qrCode;
 
-  final _i7.FairyTaleState state;
+  final _i7.FairyTaleBloc bloc;
 
   @override
   String toString() {
-    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, state: $state}';
+    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc}';
   }
 }
 

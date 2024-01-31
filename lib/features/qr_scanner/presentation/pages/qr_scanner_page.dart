@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import '/core/resources/enums.dart';
 
-import '../../../../config/routes/app_router.gr.dart';
+import '/core/resources/enums.dart';
+import '/config/routes/app_router.gr.dart';
 import '../bloc/fairy_tale_bloc.dart';
 import '/core/di/di_container.dart';
 import '/core/widgets/w_appbar.dart';
@@ -74,7 +74,7 @@ class _QScannerPageState extends State<QScannerPage> {
                                   bloc.add(
                                       FairyTaleEvent.getTales(qrCode: code));
                                   context.router.replace(
-                                      FairyTaleRoute(state: state, qrCode: code));
+                                      FairyTaleRoute(bloc: bloc, qrCode: code));
                                 } else {
                                   if (kDebugMode) {
                                     print(code);

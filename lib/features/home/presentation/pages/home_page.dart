@@ -13,15 +13,6 @@ import '../widgets/w_custom_button.dart';
 import '../widgets/w_list_items.dart';
 import '../widgets/w_top_row_buttons.dart';
 
-final AudioPlayer audioPlayer = AudioPlayer();
-
-void backgroundMusicPlay() {
-  audioPlayer.play(AssetSource('background_music.mp3'));
-  audioPlayer.onPlayerComplete.listen((event) {
-    audioPlayer.play(AssetSource('background_music.mp3'));
-  });
-}
-
 @RoutePage()
 class HomePage extends StatefulWidget {
   final SharedPreferences prefs;
@@ -40,31 +31,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    if (widget.prefs.getBool('music') ?? true) {
-      setState(() {
-        backgroundMusicPlay();
-      });
-    } else {
-      audioPlayer.stop();
-    }
   }
 
   @override
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if ((state == AppLifecycleState.resumed) &&
-        (widget.prefs.getBool('music') ?? true)) {
-      setState(() {
-        backgroundMusicPlay();
-      });
-    } else if (state == AppLifecycleState.paused) {
-      audioPlayer.stop();
-    }
   }
 
   @override

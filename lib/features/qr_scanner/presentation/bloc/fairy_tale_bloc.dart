@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../data/model/fairy_tale_dto.dart';
 import '/core/resources/usecase.dart';
 import '../../domain/usecases/get_qr_codes.dart';
@@ -58,22 +61,21 @@ class FairyTaleBloc extends Bloc<FairyTaleEvent, FairyTaleState> {
         status: Statuses.loading,
       ),
     );
+
     final response = await getTales.call(event.qrCode ?? '');
     response.fold(
-      (left) => emit(
+        (left) => emit(
+              state.copyWith.call(
+                status: Statuses.error,
+                error: left,
+              ),
+            ), (right) {
+      emit(
         state.copyWith.call(
-          status: Statuses.error,
-          error: left,
+          fairyTale: right,
+          status: Statuses.success,
         ),
-      ),
-      (right) {
-        emit(
-          state.copyWith.call(
-            fairyTale: right,
-            status: Statuses.success,
-          ),
-        );
-      }
-    );
+      );
+    });
   }
 }

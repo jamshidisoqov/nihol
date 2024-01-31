@@ -93,10 +93,10 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
                         await prefs.setBool('music', v ?? true);
                         if (v ?? true) {
                           setState(() {
-                            backgroundMusicPlay();
+                            //backgroundMusicPlay();
                           });
                         } else {
-                          audioPlayer.stop();
+                         // audioPlayer.stop();
                         }
                       },
                       title: 'Music',
