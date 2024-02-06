@@ -10,8 +10,16 @@ import '../../../../config/routes/app_router.gr.dart';
 import '../../../../core/widgets/w_background.dart';
 import '../../../../gen/assets.gen.dart';
 import '../widgets/w_custom_button.dart';
-import '../widgets/w_list_items.dart';
 import '../widgets/w_top_row_buttons.dart';
+
+final AudioPlayer audioPlayer = AudioPlayer();
+
+void backgroundMusicPlay() {
+  audioPlayer.play(AssetSource('background_music.mp3'));
+  audioPlayer.onPlayerComplete.listen((event) {
+    audioPlayer.play(AssetSource('background_music.mp3'));
+  });
+}
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -31,12 +39,36 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    musicController();
+  }
+
+  void musicController() {
+    if (widget.prefs.getBool('music') ?? true) {
+      setState(() {
+        backgroundMusicPlay();
+      });
+    } else {
+      audioPlayer.stop();
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      setState(() {
+        audioPlayer.stop();
+      });
+    } else if (state == AppLifecycleState.resumed) {
+      setState(() {
+        musicController();
+      });
+    }
   }
 
   @override
@@ -68,7 +100,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const WListItems(),
+                            Lottie.asset(
+                              'assets/animation/scan.json',
+                              fit: BoxFit.cover,
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(
                                 bottom: 16,
@@ -86,17 +121,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                     context.router.push(
                                       const QScannerRoute(),
                                     );
-                                  } else if (status.isLimited ||
-                                      status.isRestricted ||
-                                      status.isPermanentlyDenied) {
-                                    await Permission.camera.request();
-                                    status = await Permission.camera.status;
-                                    if (status.isGranted && context.mounted) {
-                                      context.router.push(
-                                        const QScannerRoute(),
-                                      );
-                                    }
-                                  } else if (status.isDenied) {
+                                  } else if (status.isPermanentlyDenied) {
                                     if (context.mounted) {
                                       showAdaptiveDialog(
                                         context: context,
@@ -125,6 +150,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                     }
                                   } else {
                                     await Permission.camera.request();
+                                    status = await Permission.camera.status;
+                                    if (status.isGranted && context.mounted) {
+                                      context.router.push(
+                                        const QScannerRoute(),
+                                      );
+                                    }
                                   }
                                 },
                               ),

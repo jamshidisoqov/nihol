@@ -28,9 +28,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   moveToNextPage() async {
-    // context.router
-    //     .replace(HomeRoute(prefs: await SharedPreferences.getInstance()));
-    context.router.replace(QScannerRoute());
+    context.router
+        .replace(HomeRoute(prefs: await SharedPreferences.getInstance()));
   }
 
   @override

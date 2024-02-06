@@ -10,7 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/cupertino.dart' as _i8;
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/foundation.dart' as _i6;
 import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details_page.dart'
     as _i1;
 import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
@@ -37,6 +37,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
           key: args.key,
           qrCode: args.qrCode,
           bloc: args.bloc,
+          dirPath: args.dirPath,
         )),
       );
     },
@@ -72,6 +73,7 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
     _i6.Key? key,
     required String? qrCode,
     required _i7.FairyTaleBloc bloc,
+    required String dirPath,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
@@ -79,6 +81,7 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
             key: key,
             qrCode: qrCode,
             bloc: bloc,
+            dirPath: dirPath,
           ),
           initialChildren: children,
         );
@@ -94,6 +97,7 @@ class FairyTaleRouteArgs {
     this.key,
     required this.qrCode,
     required this.bloc,
+    required this.dirPath,
   });
 
   final _i6.Key? key;
@@ -102,9 +106,11 @@ class FairyTaleRouteArgs {
 
   final _i7.FairyTaleBloc bloc;
 
+  final String dirPath;
+
   @override
   String toString() {
-    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc}';
+    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc, dirPath: $dirPath}';
   }
 }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class WItemContainer extends StatelessWidget {
@@ -51,8 +53,8 @@ class WItemContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(60),
           child: Transform.scale(
             scale: 1.23,
-            child: Image.asset(
-              imagePath,
+            child: Image.file(
+              File(imagePath),
               fit: BoxFit.contain,
             ),
           ),
