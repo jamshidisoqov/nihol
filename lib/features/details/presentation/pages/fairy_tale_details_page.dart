@@ -8,12 +8,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nihol_app/core/resources/boxes.dart';
+import 'package:nihol_app/features/qr_scanner/data/model/local/fairy_tale_local.dart';
 import '../../../../core/widgets/w_item_container.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '/core/resources/enums.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../firebase_options.dart';
 import '/features/qr_scanner/data/model/fairy_tale_dto.dart';
 import '/core/widgets/w_appbar.dart';
@@ -24,11 +25,19 @@ import '../widgets/w_progress.dart';
 
 @RoutePage()
 class FairyTalePage extends StatefulWidget implements AutoRouteWrapper {
+  final FairyTaleDto? fairyTaleLocal;
   final String dirPath;
+  final bool has;
   final String? qrCode;
   final FairyTaleBloc bloc;
 
-  const FairyTalePage({super.key, required this.qrCode, required this.bloc, required this.dirPath});
+  const FairyTalePage(
+      {super.key,
+      required this.qrCode,
+      required this.bloc,
+      required this.dirPath,
+      required this.has,
+      this.fairyTaleLocal});
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -68,8 +77,13 @@ class _FairyTalePageState extends State<FairyTalePage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
     dirPath = widget.dirPath;
+    if (widget.has) {
+      fairyTale = widget.fairyTaleLocal;
+      index = widget.fairyTaleLocal?.qrCodes?.indexOf(widget.qrCode ?? '') ?? 0;
+      playlist = widget.fairyTaleLocal?.musics ?? [];
+      images = widget.fairyTaleLocal?.pics ?? [];
+    }
 
     _audioPlayer.onDurationChanged.listen((Duration d) {
       setState(() {
@@ -144,7 +158,6 @@ class _FairyTalePageState extends State<FairyTalePage>
     }
   }
 
-
   Future<void> play() async {
     final path = '$dirPath/${fairyTale?.titleId}/${fairyTale?.musics?[index]}';
 
@@ -204,20 +217,33 @@ class _FairyTalePageState extends State<FairyTalePage>
               BlocConsumer<FairyTaleBloc, FairyTaleState>(
                 listener: (context, state) async {
                   if (state.status == Statuses.success) {
-                    await download(state.fairyTale);
-                    setState(() {
-                      fairyTale = state.fairyTale;
-                      index = state.fairyTale?.qrCodes
-                              ?.indexOf(widget.qrCode ?? '') ??
-                          0;
-                      playlist = state.fairyTale?.musics ?? [];
-                      images = state.fairyTale?.pics ?? [];
-                    });
+                    if (widget.has && widget.fairyTaleLocal != null) {
+                    } else {
+                      await download(state.fairyTale);
+                      setState(() {
+                        fairyTale = state.fairyTale;
+                        index = state.fairyTale?.qrCodes
+                                ?.indexOf(widget.qrCode ?? '') ??
+                            0;
+                        playlist = state.fairyTale?.musics ?? [];
+                        images = state.fairyTale?.pics ?? [];
+                      });
+                      fairyTaleLocalBox.add(
+                        FairyTaleLocal(
+                          id: state.fairyTale?.id ?? '',
+                          titles: state.fairyTale?.titles ?? [],
+                          titleId: state.fairyTale?.titleId ?? '',
+                          musics: state.fairyTale?.musics ?? [],
+                          qrCodes: state.fairyTale?.qrCodes ?? [],
+                          pics: state.fairyTale?.pics ?? [],
+                        ),
+                      );
+                    }
                   }
                 },
                 builder: (context, state) {
                   if (state.status == Statuses.success) {
-                    return isDownloaded
+                    return isDownloaded || widget.has
                         ? Container(
                             color:
                                 Colors.black.withOpacity(0.30000001192092896),

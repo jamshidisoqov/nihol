@@ -4,4 +4,5 @@ part of 'fairy_tale_bloc.dart';
 class FairyTaleEvent with _$FairyTaleEvent {
   const factory FairyTaleEvent.getQRCodes() = _GetQRCodes;
   const factory FairyTaleEvent.getTales({String? qrCode}) = _GetTales;
+  const factory FairyTaleEvent.hasInLocal({FairyTaleLocal? local}) = _HasInLocal;
 }

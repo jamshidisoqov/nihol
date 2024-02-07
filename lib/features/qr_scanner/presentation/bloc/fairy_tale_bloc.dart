@@ -5,6 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:nihol_app/core/resources/boxes.dart';
+import 'package:nihol_app/features/qr_scanner/data/model/local/fairy_tale_local.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../data/model/fairy_tale_dto.dart';
 import '/core/resources/usecase.dart';
@@ -30,6 +32,7 @@ class FairyTaleBloc extends Bloc<FairyTaleEvent, FairyTaleState> {
   }) : super(const FairyTaleState()) {
     on<_GetQRCodes>(_getQRCodes);
     on<_GetTales>(_getTales);
+    on<_HasInLocal>(_hasInLocal);
   }
 
   void _getQRCodes(_GetQRCodes event, Emitter<FairyTaleState> emit) async {
@@ -40,19 +43,48 @@ class FairyTaleBloc extends Bloc<FairyTaleEvent, FairyTaleState> {
     );
     final response = await getQRCodes.call(NoParams());
     response.fold(
-      (left) => emit(
-        state.copyWith.call(
-          status: Statuses.error,
-          error: left,
-        ),
-      ),
-      (right) => emit(
+        (left) => emit(
+              state.copyWith.call(
+                status: Statuses.error,
+                error: left,
+              ),
+            ), (right) {
+      qrCodesLocalBox.addAll(right.qr_codes ?? []);
+      emit(
         state.copyWith.call(
           qrCodes: right,
           status: Statuses.success,
         ),
+      );
+    });
+  }
+
+  void _hasInLocal(_HasInLocal event, Emitter<FairyTaleState> emit) async {
+    emit(
+      state.copyWith.call(
+        status: Statuses.loading,
       ),
     );
+    FairyTaleLocal? fairyTaleLocal = await event.local;
+    if (fairyTaleLocal == null) {
+      emit(state.copyWith.call(
+        status: Statuses.error,
+      ));
+    } else {
+      emit(
+        state.copyWith.call(
+          status: Statuses.success,
+          fairyTale: FairyTaleDto(
+            id: fairyTaleLocal.id,
+            qrCodes: fairyTaleLocal.qrCodes,
+            pics: fairyTaleLocal.pics,
+            musics: fairyTaleLocal.musics,
+            titleId: fairyTaleLocal.titleId,
+            titles: fairyTaleLocal.titles,
+          ),
+        ),
+      );
+    }
   }
 
   void _getTales(_GetTales event, Emitter<FairyTaleState> emit) async {

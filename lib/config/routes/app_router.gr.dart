@@ -9,19 +9,21 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/cupertino.dart' as _i8;
+import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/foundation.dart' as _i6;
 import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details_page.dart'
     as _i1;
 import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
     as _i2;
+import 'package:nihol_app/features/qr_scanner/data/model/fairy_tale_dto.dart'
+    as _i8;
 import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart'
     as _i7;
 import 'package:nihol_app/features/qr_scanner/presentation/pages/qr_scanner_page.dart'
     as _i3;
 import 'package:nihol_app/features/splash/presentation/pages/splash_page.dart'
     as _i4;
-import 'package:shared_preferences/shared_preferences.dart' as _i9;
+import 'package:shared_preferences/shared_preferences.dart' as _i10;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -38,6 +40,8 @@ abstract class $AppRouter extends _i5.RootStackRouter {
           qrCode: args.qrCode,
           bloc: args.bloc,
           dirPath: args.dirPath,
+          has: args.has,
+          fairyTaleLocal: args.fairyTaleLocal,
         )),
       );
     },
@@ -54,7 +58,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
     QScannerRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.WrappedRoute(child: const _i3.QScannerPage()),
+        child: const _i3.QScannerPage(),
       );
     },
     SplashRoute.name: (routeData) {
@@ -74,6 +78,8 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
     required String? qrCode,
     required _i7.FairyTaleBloc bloc,
     required String dirPath,
+    required bool has,
+    _i8.FairyTaleDto? fairyTaleLocal,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
@@ -82,6 +88,8 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
             qrCode: qrCode,
             bloc: bloc,
             dirPath: dirPath,
+            has: has,
+            fairyTaleLocal: fairyTaleLocal,
           ),
           initialChildren: children,
         );
@@ -98,6 +106,8 @@ class FairyTaleRouteArgs {
     required this.qrCode,
     required this.bloc,
     required this.dirPath,
+    required this.has,
+    this.fairyTaleLocal,
   });
 
   final _i6.Key? key;
@@ -108,9 +118,13 @@ class FairyTaleRouteArgs {
 
   final String dirPath;
 
+  final bool has;
+
+  final _i8.FairyTaleDto? fairyTaleLocal;
+
   @override
   String toString() {
-    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc, dirPath: $dirPath}';
+    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc, dirPath: $dirPath, has: $has, fairyTaleLocal: $fairyTaleLocal}';
   }
 }
 
@@ -118,8 +132,8 @@ class FairyTaleRouteArgs {
 /// [_i2.HomePage]
 class HomeRoute extends _i5.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i8.Key? key,
-    required _i9.SharedPreferences prefs,
+    _i9.Key? key,
+    required _i10.SharedPreferences prefs,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
@@ -142,9 +156,9 @@ class HomeRouteArgs {
     required this.prefs,
   });
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
-  final _i9.SharedPreferences prefs;
+  final _i10.SharedPreferences prefs;
 
   @override
   String toString() {
