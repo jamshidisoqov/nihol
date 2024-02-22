@@ -42,6 +42,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
           dirPath: args.dirPath,
           has: args.has,
           fairyTaleLocal: args.fairyTaleLocal,
+          isBackgroundMusicOn: args.isBackgroundMusicOn,
         )),
       );
     },
@@ -80,6 +81,7 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
     required String dirPath,
     required bool has,
     _i8.FairyTaleDto? fairyTaleLocal,
+    required bool isBackgroundMusicOn,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
@@ -90,6 +92,7 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
             dirPath: dirPath,
             has: has,
             fairyTaleLocal: fairyTaleLocal,
+            isBackgroundMusicOn: isBackgroundMusicOn,
           ),
           initialChildren: children,
         );
@@ -108,6 +111,7 @@ class FairyTaleRouteArgs {
     required this.dirPath,
     required this.has,
     this.fairyTaleLocal,
+    required this.isBackgroundMusicOn,
   });
 
   final _i6.Key? key;
@@ -122,9 +126,11 @@ class FairyTaleRouteArgs {
 
   final _i8.FairyTaleDto? fairyTaleLocal;
 
+  final bool isBackgroundMusicOn;
+
   @override
   String toString() {
-    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc, dirPath: $dirPath, has: $has, fairyTaleLocal: $fairyTaleLocal}';
+    return 'FairyTaleRouteArgs{key: $key, qrCode: $qrCode, bloc: $bloc, dirPath: $dirPath, has: $has, fairyTaleLocal: $fairyTaleLocal, isBackgroundMusicOn: $isBackgroundMusicOn}';
   }
 }
 

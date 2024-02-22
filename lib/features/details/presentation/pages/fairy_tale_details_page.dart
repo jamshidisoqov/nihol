@@ -26,18 +26,21 @@ import '../widgets/w_progress.dart';
 @RoutePage()
 class FairyTalePage extends StatefulWidget implements AutoRouteWrapper {
   final FairyTaleDto? fairyTaleLocal;
+  final bool isBackgroundMusicOn;
   final String dirPath;
   final bool has;
   final String? qrCode;
   final FairyTaleBloc bloc;
 
-  const FairyTalePage(
-      {super.key,
-      required this.qrCode,
-      required this.bloc,
-      required this.dirPath,
-      required this.has,
-      this.fairyTaleLocal});
+  const FairyTalePage({
+    super.key,
+    required this.qrCode,
+    required this.bloc,
+    required this.dirPath,
+    required this.has,
+    this.fairyTaleLocal,
+    required this.isBackgroundMusicOn,
+  });
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -57,13 +60,12 @@ class _FairyTalePageState extends State<FairyTalePage>
   late String dirPath = '';
   final AudioPlayer _audioPlayer = AudioPlayer();
   late FairyTaleDto? fairyTale = const FairyTaleDto();
-  late List<String> images;
+  late List<String> images = [];
   late List<String> playlist;
   int currentTrackIndex = 0;
   int currentImageIndex = 0;
   late bool isPlay = false;
   late bool isDownloaded = false;
-  static const String basePath = 'assets/fairy_tale/';
   Duration duration = const Duration();
   Duration position = const Duration();
   late Animation<double> animation;
@@ -79,30 +81,43 @@ class _FairyTalePageState extends State<FairyTalePage>
     WidgetsBinding.instance.addObserver(this);
     dirPath = widget.dirPath;
     if (widget.has) {
+      if (kDebugMode) {
+        print('TESTTSTSTSS');
+        print('TESTTSTSTSS');
+        print('TESTTSTSTSS');
+      }
       fairyTale = widget.fairyTaleLocal;
       index = widget.fairyTaleLocal?.qrCodes?.indexOf(widget.qrCode ?? '') ?? 0;
       playlist = widget.fairyTaleLocal?.musics ?? [];
       images = widget.fairyTaleLocal?.pics ?? [];
     }
 
+    if (images.length > 1) {
+      Timer.periodic(const Duration(seconds: 20), (Timer timer) {
+        setState(() {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+        });
+      });
+    }
+
     _audioPlayer.onDurationChanged.listen((Duration d) {
       setState(() {
         duration = d;
-        totalSeconds = d.inSeconds;
-        count = totalSeconds ~/ images.length;
-        t = totalSeconds ~/ images.length;
+        // totalSeconds = d.inSeconds;
+        // count = totalSeconds ~/ images.length;
+        // t = totalSeconds ~/ images.length;
       });
     });
     _audioPlayer.onPositionChanged.listen((Duration p) {
       setState(() {
         position = p;
-        if (p.inSeconds == count) {
-          count = count + t;
-          currentImageIndex = (currentImageIndex + 1) % images.length;
-        }
-        if (p.inSeconds == 0) {
-          currentImageIndex = 0;
-        }
+        // if (p.inSeconds >= count) {
+        //   count = count + t;
+        //   currentImageIndex = (currentImageIndex + 1) % images.length;
+        // }
+        // if (p.inSeconds == 0) {
+        //   currentImageIndex = 0;
+        // }
       });
     });
     _audioPlayer.onPlayerComplete.listen((event) {
@@ -126,20 +141,13 @@ class _FairyTalePageState extends State<FairyTalePage>
         options: DefaultFirebaseOptions.currentPlatform);
   }
 
-  void initPrefs() async {
-    // if(context.router.currentPath != '/details'){
-    //   final prefs = await SharedPreferences.getInstance();
-    //   if (prefs.getBool('music') ?? true) {
-    //     backgroundMusicPlay();
-    //   }
-    // }
-  }
-
   @override
   void dispose() {
     super.dispose();
+    if (widget.isBackgroundMusicOn) {
+      backgroundMusicPlay();
+    }
     WidgetsBinding.instance.removeObserver(this);
-    initPrefs();
     _audioPlayer.dispose();
     animationController.dispose();
   }
@@ -147,7 +155,6 @@ class _FairyTalePageState extends State<FairyTalePage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if ((state == AppLifecycleState.resumed)) {
-      audioPlayer.stop();
       if (isPlay) {
         play();
       }
@@ -298,6 +305,7 @@ class _FairyTalePageState extends State<FairyTalePage>
                                         WProgress(
                                           duration: duration,
                                           position: position,
+                                          player: _audioPlayer,
                                         ),
                                       ],
                                     ),
@@ -306,19 +314,55 @@ class _FairyTalePageState extends State<FairyTalePage>
                               ],
                             ),
                           )
-                        : const Center(
-                            child: SizedBox(
-                              height: 40,
-                              width: 40,
-                              child: CircularProgressIndicator(),
+                        : Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 5,
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              height: 60,
+                              width: 60,
+                              child: Lottie.asset(
+                                'assets/animation/loading.json',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           );
                   }
-                  return const Center(
-                    child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: CircularProgressIndicator(),
+                  return Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 10,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      height: 60,
+                      width: 60,
+                      child: Lottie.asset(
+                        'assets/animation/loading.json',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },

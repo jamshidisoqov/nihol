@@ -3,9 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../config/routes/app_router.gr.dart';
@@ -62,14 +60,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      setState(() {
-        audioPlayer.stop();
-      });
-    } else if (state == AppLifecycleState.resumed) {
-      setState(() {
-        musicController();
-      });
+    if (context.router.currentPath == '/home') {
+      if (state == AppLifecycleState.paused) {
+        setState(() {
+          audioPlayer.stop();
+        });
+      } else if (state == AppLifecycleState.resumed) {
+        setState(() {
+          musicController();
+        });
+      }
     }
   }
 
@@ -114,7 +114,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 icon: Assets.png.searchButton
                                     .image(width: 90, height: 90),
                                 onPressed: () async {
-
                                   setState(() {});
                                   var status = await Permission.camera.status;
                                   if (kDebugMode) {
