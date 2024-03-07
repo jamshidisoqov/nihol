@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/widgets/w_dialog_container.dart';
-import '../../../../gen/assets.gen.dart';
+import '/core/widgets/w_dialog_container.dart';
+import '/gen/assets.gen.dart';
 import '../pages/home_page.dart';
 import 'w_custom_button.dart';
 import 'w_switch.dart';

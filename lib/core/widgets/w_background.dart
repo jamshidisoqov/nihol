@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../gen/assets.gen.dart';
+import '/gen/assets.gen.dart';
 
 class WBackground extends StatelessWidget {
   final Widget child;

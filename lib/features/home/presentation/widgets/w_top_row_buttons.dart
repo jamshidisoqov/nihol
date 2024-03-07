@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../gen/assets.gen.dart';
+import '/gen/assets.gen.dart';
 import 'w_custom_button.dart';
 import 'w_exit_dialog.dart';
 import 'w_settings_dialog.dart';

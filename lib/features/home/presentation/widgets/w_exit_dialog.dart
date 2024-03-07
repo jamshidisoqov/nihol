@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/widgets/w_dialog_container.dart';
-import '../../../../gen/assets.gen.dart';
+import '/core/widgets/w_dialog_container.dart';
+import '/gen/assets.gen.dart';
 import 'w_custom_button.dart';
 
 class WExitDialog extends StatelessWidget {

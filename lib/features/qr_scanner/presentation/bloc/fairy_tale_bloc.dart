@@ -1,13 +1,8 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:nihol_app/core/resources/boxes.dart';
-import 'package:nihol_app/features/qr_scanner/data/model/local/fairy_tale_local.dart';
-import 'package:path_provider/path_provider.dart';
+import '/core/resources/boxes.dart';
+import '/features/qr_scanner/data/model/local/fairy_tale_local.dart';
 import '../../data/model/fairy_tale_dto.dart';
 import '/core/resources/usecase.dart';
 import '../../domain/usecases/get_qr_codes.dart';

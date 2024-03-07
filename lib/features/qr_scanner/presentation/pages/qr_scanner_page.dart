@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/resources/boxes.dart';
+import '/core/resources/boxes.dart';
 import '../../data/model/fairy_tale_dto.dart';
 import '../../data/model/local/fairy_tale_local.dart';
 import '/config/routes/app_router.gr.dart';
@@ -26,11 +26,89 @@ class _QScannerPageState extends State<QScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   MobileScannerController cameraController = MobileScannerController();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    testRun();
+  }
+
   @override
   void dispose() {
     super.dispose();
     cameraController.dispose();
   }
+
+
+  void testRun() async {
+      final prefs = await SharedPreferences.getInstance();
+      final bloc = context.read<FairyTaleBloc>();
+      final code = "ToSuRaEn17";
+      //capture.barcodes.first.rawValue;
+
+      List<String> qrCodesListInLocal =
+      qrCodesLocalBox.values.toList().cast<String>();
+      List<FairyTaleLocal> fairyTaleListInLocal =
+      fairyTaleLocalBox.values
+          .toList()
+          .cast<FairyTaleLocal>();
+      bool hasQrCodesInLocal =
+      qrCodesListInLocal.contains(code);
+
+      final dir = await getApplicationDocumentsDirectory();
+      if (hasQrCodesInLocal) {
+        LocalCheck local = hasFairyTaleInLocal(
+            fairyTaleListInLocal, code ?? '');
+        if (local.has) {
+          bloc.add(
+            FairyTaleEvent.hasInLocal(
+              local: local.taleLocal,
+            ),
+          );
+          if (context.mounted) {
+            context.router.replace(
+              FairyTaleRoute(
+                fairyTaleLocal: FairyTaleDto(
+                  titles: local.taleLocal?.titles,
+                  titleId: local.taleLocal?.titleId,
+                  musics: local.taleLocal?.musics,
+                  pics: local.taleLocal?.pics,
+                  qrCodes: local.taleLocal?.qrCodes,
+                ),
+                has: local.has,
+                dirPath: dir.path,
+                bloc: bloc,
+                qrCode: code,
+                isBackgroundMusicOn:
+                prefs.getBool('music') ?? true,
+              ),
+            );
+          }
+        } else {
+          if (context.mounted) {
+            context.router.replace(
+              FairyTaleRoute(
+                has: false,
+                dirPath: dir.path,
+                bloc: bloc,
+                qrCode: code,
+                isBackgroundMusicOn:
+                prefs.getBool('music') ?? true,
+              ),
+            );
+          }
+          bloc.add(
+            FairyTaleEvent.getTales(
+              qrCode: code,
+            ),
+          );
+        }
+      } else {
+        bloc.add(const FairyTaleEvent.getQRCodes());
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -50,83 +128,84 @@ class _QScannerPageState extends State<QScannerPage> {
                   const WAppBar(
                     title: 'Scanner',
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.width - 8,
-                    padding: const EdgeInsets.all(16.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: MobileScanner(
-                        controller: cameraController,
-                        onDetect: (capture) async {
-                          final prefs = await SharedPreferences.getInstance();
-                          final bloc = context.read<FairyTaleBloc>();
-                          final code = capture.barcodes.first.rawValue;
-
-                          List<String> qrCodesListInLocal =
-                              qrCodesLocalBox.values.toList().cast<String>();
-                          List<FairyTaleLocal> fairyTaleListInLocal =
-                              fairyTaleLocalBox.values
-                                  .toList()
-                                  .cast<FairyTaleLocal>();
-                          bool hasQrCodesInLocal =
-                              qrCodesListInLocal.contains(code);
-
-                          final dir = await getApplicationDocumentsDirectory();
-                          if (hasQrCodesInLocal) {
-                            LocalCheck local = hasFairyTaleInLocal(
-                                fairyTaleListInLocal, code ?? '');
-                            if (local.has) {
-                              bloc.add(
-                                FairyTaleEvent.hasInLocal(
-                                  local: local.taleLocal,
-                                ),
-                              );
-                              if (context.mounted) {
-                                context.router.replace(
-                                  FairyTaleRoute(
-                                    fairyTaleLocal: FairyTaleDto(
-                                      titles: local.taleLocal?.titles,
-                                      titleId: local.taleLocal?.titleId,
-                                      musics: local.taleLocal?.musics,
-                                      pics: local.taleLocal?.pics,
-                                      qrCodes: local.taleLocal?.qrCodes,
-                                    ),
-                                    has: local.has,
-                                    dirPath: dir.path,
-                                    bloc: bloc,
-                                    qrCode: code,
-                                    isBackgroundMusicOn:
-                                        prefs.getBool('music') ?? true,
-                                  ),
-                                );
-                              }
-                            } else {
-                              if (context.mounted) {
-                                context.router.replace(
-                                  FairyTaleRoute(
-                                    has: false,
-                                    dirPath: dir.path,
-                                    bloc: bloc,
-                                    qrCode: code,
-                                    isBackgroundMusicOn:
-                                        prefs.getBool('music') ?? true,
-                                  ),
-                                );
-                              }
-                              bloc.add(
-                                FairyTaleEvent.getTales(
-                                  qrCode: code,
-                                ),
-                              );
-                            }
-                          } else {
-                            bloc.add(const FairyTaleEvent.getQRCodes());
-                          }
-                        },
-                      ),
-                    ),
-                  )
+                  // Container(
+                  //   width: double.infinity,
+                  //   height: MediaQuery.of(context).size.width - 8,
+                  //   padding: const EdgeInsets.all(16.0),
+                  //   child: ClipRRect(
+                  //     borderRadius: BorderRadius.circular(30),
+                  //     child: MobileScanner(
+                  //       controller: cameraController,
+                  //       onDetect: (capture) async {
+                  //         final prefs = await SharedPreferences.getInstance();
+                  //         final bloc = context.read<FairyTaleBloc>();
+                  //         final code = "ToSuRaEn17";
+                  //             //capture.barcodes.first.rawValue;
+                  //
+                  //         List<String> qrCodesListInLocal =
+                  //             qrCodesLocalBox.values.toList().cast<String>();
+                  //         List<FairyTaleLocal> fairyTaleListInLocal =
+                  //             fairyTaleLocalBox.values
+                  //                 .toList()
+                  //                 .cast<FairyTaleLocal>();
+                  //         bool hasQrCodesInLocal =
+                  //             qrCodesListInLocal.contains(code);
+                  //
+                  //         final dir = await getApplicationDocumentsDirectory();
+                  //         if (hasQrCodesInLocal) {
+                  //           LocalCheck local = hasFairyTaleInLocal(
+                  //               fairyTaleListInLocal, code ?? '');
+                  //           if (local.has) {
+                  //             bloc.add(
+                  //               FairyTaleEvent.hasInLocal(
+                  //                 local: local.taleLocal,
+                  //               ),
+                  //             );
+                  //             if (context.mounted) {
+                  //               context.router.replace(
+                  //                 FairyTaleRoute(
+                  //                   fairyTaleLocal: FairyTaleDto(
+                  //                     titles: local.taleLocal?.titles,
+                  //                     titleId: local.taleLocal?.titleId,
+                  //                     musics: local.taleLocal?.musics,
+                  //                     pics: local.taleLocal?.pics,
+                  //                     qrCodes: local.taleLocal?.qrCodes,
+                  //                   ),
+                  //                   has: local.has,
+                  //                   dirPath: dir.path,
+                  //                   bloc: bloc,
+                  //                   qrCode: code,
+                  //                   isBackgroundMusicOn:
+                  //                       prefs.getBool('music') ?? true,
+                  //                 ),
+                  //               );
+                  //             }
+                  //           } else {
+                  //             if (context.mounted) {
+                  //               context.router.replace(
+                  //                 FairyTaleRoute(
+                  //                   has: false,
+                  //                   dirPath: dir.path,
+                  //                   bloc: bloc,
+                  //                   qrCode: code,
+                  //                   isBackgroundMusicOn:
+                  //                       prefs.getBool('music') ?? true,
+                  //                 ),
+                  //               );
+                  //             }
+                  //             bloc.add(
+                  //               FairyTaleEvent.getTales(
+                  //                 qrCode: code,
+                  //               ),
+                  //             );
+                  //           }
+                  //         } else {
+                  //           bloc.add(const FairyTaleEvent.getQRCodes());
+                  //         }
+                  //       },
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
