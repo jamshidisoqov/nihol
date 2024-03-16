@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,7 +63,7 @@ class WExitDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(28).copyWith(top: 0),
                     child: WCustomButton(
                       onPressed: () {
-                        SystemNavigator.pop();
+                        exit(0);
                       },
                       icon: Assets.png.yesButton.image(width: 100, height: 50),
                     ),
