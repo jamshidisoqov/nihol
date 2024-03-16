@@ -15,11 +15,14 @@ class $AssetsAnimationGen {
   /// File path: assets/animation/birds.json
   String get birds => 'assets/animation/birds.json';
 
+  /// File path: assets/animation/loading.json
+  String get loading => 'assets/animation/loading.json';
+
   /// File path: assets/animation/scan.json
   String get scan => 'assets/animation/scan.json';
 
   /// List of all assets
-  List<String> get values => [birds, scan];
+  List<String> get values => [birds, loading, scan];
 }
 
 class $AssetsFontsGen {

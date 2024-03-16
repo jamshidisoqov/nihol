@@ -230,7 +230,7 @@ class _FairyTalePageState extends State<FairyTalePage>
                       setState(() {
                         fairyTale = state.fairyTale;
                         index = state.fairyTale?.qrCodes
-                                ?.indexOf(widget.qrCode ?? '') ??
+                            ?.indexOf(widget.qrCode ?? '') ??
                             0;
                         playlist = state.fairyTale?.musics ?? [];
                         images = state.fairyTale?.pics ?? [];
@@ -252,93 +252,93 @@ class _FairyTalePageState extends State<FairyTalePage>
                   if (state.status == Statuses.success) {
                     return isDownloaded || widget.has
                         ? Container(
-                            color:
-                                Colors.black.withOpacity(0.30000001192092896),
-                            child: Column(
-                              children: [
-                                WAppBar(
-                                  title:
-                                      fairyTale?.titles?[index].toUpperCase() ??
-                                          '',
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const Spacer(),
-                                        AnimatedSwitcher(
-                                          duration: const Duration(seconds: 3),
-                                          child: SizedBox(
-                                            key: ValueKey<int>(
-                                                currentImageIndex),
-                                            height: 250,
-                                            child: FadeTransition(
-                                              key: ValueKey<int>(
-                                                  currentImageIndex),
-                                              opacity:
-                                                  const AlwaysStoppedAnimation(
-                                                      1.0),
-                                              child: WItemContainer(
-                                                imagePath:
-                                                    '$dirPath/${fairyTale?.titleId}/images/${fairyTale?.pics?[currentImageIndex]}',
-                                              ),
-                                            ),
-                                          ),
+                      color:
+                      Colors.black.withOpacity(0.30000001192092896),
+                      child: Column(
+                        children: [
+                          WAppBar(
+                            title:
+                            fairyTale?.titles?[index].toUpperCase() ??
+                                '',
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  const Spacer(),
+                                  AnimatedSwitcher(
+                                    duration: const Duration(seconds: 3),
+                                    child: SizedBox(
+                                      key: ValueKey<int>(
+                                          currentImageIndex),
+                                      height: 250,
+                                      child: FadeTransition(
+                                        key: ValueKey<int>(
+                                            currentImageIndex),
+                                        opacity:
+                                        const AlwaysStoppedAnimation(
+                                            1.0),
+                                        child: WItemContainer(
+                                          imagePath:
+                                          '$dirPath/${fairyTale?.titleId}/images/${fairyTale?.pics?[currentImageIndex]}',
                                         ),
-                                        const Spacer(),
-                                        WPlayButtons(
-                                          isPlay: isPlay,
-                                          onStart: () async {
-                                            if (isPlay) {
-                                              pause();
-                                            } else {
-                                              play();
-                                            }
-                                          },
-                                          onNext: next,
-                                          onPrev: previous,
-                                        ),
-                                        WProgress(
-                                          duration: duration,
-                                          position: position,
-                                          player: _audioPlayer,
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 5,
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 3),
+                                  const Spacer(),
+                                  WPlayButtons(
+                                    isPlay: isPlay,
+                                    onStart: () async {
+                                      if (isPlay) {
+                                        pause();
+                                      } else {
+                                        play();
+                                      }
+                                    },
+                                    onNext: next,
+                                    onPrev: previous,
+                                  ),
+                                  WProgress(
+                                    duration: duration,
+                                    position: position,
+                                    player: _audioPlayer,
                                   ),
                                 ],
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              height: 60,
-                              width: 60,
-                              child: Lottie.asset(
-                                'assets/animation/loading.json',
-                                fit: BoxFit.cover,
                               ),
                             ),
-                          );
+                          ),
+                        ],
+                      ),
+                    )
+                        : Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        height: 60,
+                        width: 60,
+                        child: Lottie.asset(
+                          'assets/animation/loading.json',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
                   }
                   return Center(
                     child: Container(
