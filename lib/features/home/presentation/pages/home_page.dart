@@ -3,7 +3,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../config/routes/app_router.gr.dart';
@@ -60,16 +62,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (context.router.currentPath == '/home') {
-      if (state == AppLifecycleState.paused) {
-        setState(() {
-          audioPlayer.stop();
-        });
-      } else if (state == AppLifecycleState.resumed) {
-        setState(() {
-          musicController();
-        });
-      }
+    if (state == AppLifecycleState.paused) {
+      setState(() {
+        audioPlayer.stop();
+      });
+    } else if (state == AppLifecycleState.resumed) {
+      setState(() {
+        musicController();
+      });
     }
   }
 
@@ -113,53 +113,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               child: WCustomButton(
                                 icon: Assets.png.searchButton
                                     .image(width: 90, height: 90),
-                                onPressed: () async {
-                                  setState(() {});
-                                  var status = await Permission.camera.status;
-                                  if (kDebugMode) {
-                                    print(status);
-                                  }
-                                  if (status.isGranted && context.mounted) {
-                                    context.router.push(
-                                      const QScannerRoute(),
-                                    );
-                                  } else if (status.isPermanentlyDenied) {
-                                    if (context.mounted) {
-                                      showAdaptiveDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            CupertinoAlertDialog(
-                                          title:
-                                              const Text("Permission Denied"),
-                                          content: const Text(
-                                              "Allow access to camera from settings"),
-                                          actions: [
-                                            CupertinoDialogAction(
-                                              onPressed: () =>
-                                                  context.router.pop(),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            CupertinoDialogAction(
-                                              onPressed: () async {
-                                                await context.router.pop();
-                                                openAppSettings();
-                                              },
-                                              child: const Text('Settings'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  } else {
-                                    await Permission.camera.request();
-                                    status = await Permission.camera.status;
-                                    if (status.isGranted && context.mounted) {
-                                      context.router.push(
-                                        const QScannerRoute(),
-                                      );
-                                    }
-                                  }
-                                },
+                                onPressed: () => allowCamera(context),
                               ),
                             ),
                           ],
@@ -174,5 +128,52 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
       ),
     );
+  }
+
+  void allowCamera(BuildContext context) async {
+    var status = await Permission.camera.status;
+    if (kDebugMode) {
+      print(status);
+    }
+    if (status.isGranted && context.mounted) {
+      statusGranted(context);
+    } else if (status.isRestricted  || status.isDenied || status.isLimited) {
+      await Permission.camera.request();
+      status = await Permission.camera.status;
+      if (status.isGranted && context.mounted) {
+        statusGranted(context);
+      }
+    } else {
+      if (context.mounted) {
+        showAdaptiveDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: Text('Permission Denied'),
+            content: Text('Allow access to camera from settings'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => context.router.pop(),
+                child: Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                onPressed: () async {
+                  await context.router.pop();
+                  openAppSettings();
+                },
+                child: Text('Settings'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+  void statusGranted(BuildContext context) {
+    if (context.mounted) {
+      context.router.push(
+        const QScannerRoute(),
+      );
+    }
   }
 }

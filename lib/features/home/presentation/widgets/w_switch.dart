@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../gen/assets.gen.dart';
+import '/gen/assets.gen.dart';
 
 class WSwitch extends StatelessWidget {
   final bool value;

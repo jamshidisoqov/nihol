@@ -8,9 +8,9 @@ class WProgress extends StatefulWidget {
 
   const WProgress(
       {super.key,
-      required this.duration,
-      required this.position,
-      required this.player});
+        required this.duration,
+        required this.position,
+        required this.player});
 
   @override
   State<WProgress> createState() => _WProgressState();
@@ -80,10 +80,10 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
   @override
   Rect getPreferredRect(
       {required RenderBox parentBox,
-      Offset offset = Offset.zero,
-      required SliderThemeData sliderTheme,
-      bool isEnabled = false,
-      bool isDiscrete = false}) {
+        Offset offset = Offset.zero,
+        required SliderThemeData sliderTheme,
+        bool isEnabled = false,
+        bool isDiscrete = false}) {
     final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx + 10;
     final double trackTop =
@@ -102,9 +102,9 @@ class CustomThumbShape extends RoundSliderThumbShape {
     double thumbRadius = 0.0,
     bool isEnabled = true,
   }) : super(
-          enabledThumbRadius: thumbRadius,
-          disabledThumbRadius: thumbRadius,
-        );
+    enabledThumbRadius: thumbRadius,
+    disabledThumbRadius: thumbRadius,
+  );
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {

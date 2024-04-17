@@ -60,11 +60,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAxL81XCW7glE_W4Co4CBzFThTnBsujPWE',
-    appId: '1:449068632253:ios:f819f0b2a72e87d7d20fd4',
+    appId: '1:449068632253:ios:e58ebdca493aebfad20fd4',
     messagingSenderId: '449068632253',
     projectId: 'fairy-tale-uz',
     databaseURL: 'https://fairy-tale-uz-default-rtdb.firebaseio.com',
     storageBucket: 'fairy-tale-uz.appspot.com',
-    iosBundleId: 'com.example.niholApp',
+    iosBundleId: 'com.Behzod.Nihol',
   );
 }
