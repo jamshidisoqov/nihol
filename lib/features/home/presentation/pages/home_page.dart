@@ -132,7 +132,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void allowCamera(BuildContext context) async {
     var status = await Permission.camera.status;
-    if (kDebugMode) {
+    statusGranted(context);
+   /* if (kDebugMode) {
       print(status);
     }
     if (status.isGranted && context.mounted) {
@@ -166,7 +167,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ),
         );
       }
-    }
+    }*/
   }
 
   void statusGranted(BuildContext context) {
