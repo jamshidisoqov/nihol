@@ -133,41 +133,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void allowCamera(BuildContext context) async {
     var status = await Permission.camera.status;
     statusGranted(context);
-   /* if (kDebugMode) {
-      print(status);
-    }
-    if (status.isGranted && context.mounted) {
-      statusGranted(context);
-    } else if (status.isRestricted  || status.isDenied || status.isLimited) {
-      await Permission.camera.request();
-      status = await Permission.camera.status;
-      if (status.isGranted && context.mounted) {
-        statusGranted(context);
-      }
-    } else {
-      if (context.mounted) {
-        showAdaptiveDialog(
-          context: context,
-          builder: (context) => CupertinoAlertDialog(
-            title: Text('Permission Denied'),
-            content: Text('Allow access to camera from settings'),
-            actions: [
-              CupertinoDialogAction(
-                onPressed: () => context.router.pop(),
-                child: Text('Cancel'),
-              ),
-              CupertinoDialogAction(
-                onPressed: () async {
-                  await context.router.pop();
-                  openAppSettings();
-                },
-                child: Text('Settings'),
-              ),
-            ],
-          ),
-        );
-      }
-    }*/
   }
 
   void statusGranted(BuildContext context) {
