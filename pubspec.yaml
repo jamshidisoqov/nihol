@@ -52,6 +52,7 @@ dependencies:
   json_annotation:
   firebase_core: ^2.30.0
   firebase_messaging: ^14.8.2
+  url_launcher: ^6.2.6
   dio: ^5.4.0
   hive_flutter:
   hive:
