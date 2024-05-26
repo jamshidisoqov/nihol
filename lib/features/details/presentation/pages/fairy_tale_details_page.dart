@@ -424,7 +424,8 @@ class _FairyTalePageState extends State<FairyTalePage>
           i: i,
         );
       }
-      for (int i = 0; i < 3; i++) {
+      int musicLen = tale?.musics?.length ?? 3;
+      for (int i = 0; i < musicLen; i++) {
         await downloadFile(
           tale: tale,
           ref: storage.ref().child("${tale?.titleId}/${tale?.musics?[i]}"),
