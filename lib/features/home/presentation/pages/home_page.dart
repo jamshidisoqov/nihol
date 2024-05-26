@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../config/routes/app_router.gr.dart';
 import '../../../../core/widgets/w_background.dart';
@@ -129,7 +128,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void allowCamera(BuildContext context) async {
-    var status = await Permission.camera.status;
     statusGranted(context);
   }
 

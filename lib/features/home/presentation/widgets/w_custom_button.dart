@@ -57,10 +57,10 @@ class _WCustomButtonState extends State<WCustomButton>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final AudioPlayer _audioPlayer = AudioPlayer();
+        final AudioPlayer audioPlayer = AudioPlayer();
         final prefs = await SharedPreferences.getInstance();
         prefs.getBool('sound') ?? true
-            ? _audioPlayer.play(AssetSource('click.mp3'))
+            ? audioPlayer.play(AssetSource('click.mp3'))
             : null;
         _onTap();
       },

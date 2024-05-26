@@ -8,7 +8,7 @@ import 'w_custom_button.dart';
 import 'w_exit_dialog.dart';
 import 'w_settings_dialog.dart';
 
-final Uri _url = Uri.parse('https://flutter.dev');
+final Uri _url = Uri.parse('https://apps.apple.com/uz/app/nihol/id1460801616');
 
 class WTopRowButtons extends StatelessWidget {
 

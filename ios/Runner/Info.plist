@@ -27,7 +27,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>To capture profile photo please grant camera access</string>
+	<string>Camera is used to play audios with qr codes in free books.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App needs access to photo lib for profile images</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
