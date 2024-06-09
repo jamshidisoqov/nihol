@@ -64,6 +64,9 @@ class $AssetsPngGen {
   AssetGenImage get facebookButton =>
       const AssetGenImage('assets/png/facebook_button.png');
 
+  /// File path: assets/png/list_bg.png
+  AssetGenImage get listBg => const AssetGenImage('assets/png/list_bg.png');
+
   /// File path: assets/png/more_app_button.png
   AssetGenImage get moreAppButton =>
       const AssetGenImage('assets/png/more_app_button.png');
@@ -110,6 +113,9 @@ class $AssetsPngGen {
   AssetGenImage get splashConainer =>
       const AssetGenImage('assets/png/splash_conainer.png');
 
+  /// File path: assets/png/tv.png
+  AssetGenImage get tv => const AssetGenImage('assets/png/tv.png');
+
   /// File path: assets/png/yes_button.png
   AssetGenImage get yesButton =>
       const AssetGenImage('assets/png/yes_button.png');
@@ -120,6 +126,7 @@ class $AssetsPngGen {
         board,
         cancelButton,
         facebookButton,
+        listBg,
         moreAppButton,
         nextButton,
         pauseButton,
@@ -132,6 +139,7 @@ class $AssetsPngGen {
         shareButton,
         soundOn,
         splashConainer,
+        tv,
         yesButton
       ];
 }

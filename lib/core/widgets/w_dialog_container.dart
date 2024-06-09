@@ -30,11 +30,11 @@ class WTvListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width * 1.5,
+      height: MediaQuery.of(context).size.width * 1.1,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: Assets.png.board.provider(),
+          image: Assets.png.listBg.provider(),
           fit: BoxFit.fill,
         ),
       ),

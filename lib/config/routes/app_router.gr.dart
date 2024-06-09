@@ -9,8 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/cupertino.dart' as _i9;
 import 'package:flutter/foundation.dart' as _i6;
+import 'package:flutter/material.dart' as _i9;
 import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details_page.dart'
     as _i1;
 import 'package:nihol_app/features/home/presentation/pages/home_page.dart'

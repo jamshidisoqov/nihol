@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +38,8 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    String deviceName =
+        widget.prefs.getString(widget.deviceNameKey) ?? "No device";
     return AlertDialog(
       backgroundColor: Colors.transparent,
       contentPadding: EdgeInsets.zero,
@@ -107,6 +111,7 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
                       },
                       title: 'Music',
                     ),
+                    const SizedBox(width: 24,height: 24),
                     WSwitch(
                       value: isSoundOn,
                       onChanged: (v) async {
@@ -118,8 +123,13 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
                       },
                       title: 'Sound',
                     ),
-                    WSwitch(
+                    const SizedBox(width: 24,height: 24),
+                    TvSwitch(
                       value: isSendTv,
+                      onClick: () {
+                        context.router.maybePop();
+                        _showDeviceListDialog(context);
+                      },
                       onChanged: (v) async {
                         final prefs = await SharedPreferences.getInstance();
                         if (prefs.getString(widget.deviceIdKey) != null) {
@@ -129,12 +139,13 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
                           await prefs.setBool(widget.deviceTvSend, v ?? true);
                         } else {
                           if (v ?? true) {
+                            context.router.maybePop();
                             _showDeviceListDialog(context);
                           }
                         }
                       },
-                      title: widget.prefs.getString(widget.deviceNameKey) ??
-                          "No device",
+                      title:
+                          deviceName.substring(0, min(deviceName.length, 12)),
                     )
                   ],
                 ),
