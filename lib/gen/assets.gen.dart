@@ -144,10 +144,11 @@ class Assets {
   static const String click = 'assets/click.mp3';
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsJpgGen jpg = $AssetsJpgGen();
+  static const AssetGenImage logo = AssetGenImage('assets/logo.png');
   static const $AssetsPngGen png = $AssetsPngGen();
 
   /// List of all assets
-  static List<String> get values => [backgroundMusic, click];
+  static List<dynamic> get values => [backgroundMusic, click, logo];
 }
 
 class AssetGenImage {

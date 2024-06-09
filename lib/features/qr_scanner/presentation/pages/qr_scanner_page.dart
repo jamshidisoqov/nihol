@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -137,7 +136,7 @@ class _QScannerPageState extends State<QScannerPage> {
   }
 
   LocalCheck hasFairyTaleInLocal(
-      List<FairyTaleLocal> fairyTaleLocal, String code) {
+    List<FairyTaleLocal> fairyTaleLocal, String code) {
     bool has = false;
     late FairyTaleLocal taleLocal;
     for (int i = 0; i < fairyTaleLocal.length; i++) {

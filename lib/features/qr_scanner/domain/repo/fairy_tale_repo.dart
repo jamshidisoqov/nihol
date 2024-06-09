@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:nihol_app/features/home/presentation/widgets/online_tv/device_with_location_dto.dart';
 
 import '/core/resources/failures.dart';
 import '../../data/model/fairy_tale_dto.dart';

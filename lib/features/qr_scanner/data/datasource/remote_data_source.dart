@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../../home/presentation/widgets/online_tv/device_with_location_dto.dart';
 import '../model/fairy_tale_dto.dart';
 import '../model/qr_codes_dto.dart';
 
@@ -8,6 +9,7 @@ abstract class FairyTaleRemoteDataSource {
   Future<FairyTaleDto> getTale(String qrCode);
 
   Future<QRCodesDto> getQRCodes();
+
 }
 
 class FairyTaleRemoteDataSourceImpl extends FairyTaleRemoteDataSource {
@@ -16,6 +18,8 @@ class FairyTaleRemoteDataSourceImpl extends FairyTaleRemoteDataSource {
     try {
       final ref = FirebaseDatabase.instance.ref();
       final response = await ref.child('fairy_tales').get();
+      print("cccccccc");
+      print(response.value);
       return parseFairyTaleRemoteSource(response.value, qrCode);
     } catch (e) {
       rethrow;
@@ -69,7 +73,8 @@ class FairyTaleRemoteDataSourceImpl extends FairyTaleRemoteDataSource {
             titleId: tale['titleId'] as String,
           ),
         )
-        .toList().cast<FairyTaleDto>();
+        .toList()
+        .cast<FairyTaleDto>();
 
     FairyTaleDto tale = fairyTales.firstWhere((element) {
       bool has = false;

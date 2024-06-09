@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '/gen/assets.gen.dart';
 import 'w_custom_button.dart';
 import 'w_exit_dialog.dart';
-import 'w_settings_dialog.dart';
+import 'settings/w_settings_dialog.dart';
 
 final Uri _url = Uri.parse('https://apps.apple.com/uz/app/nihol/id1460801616');
 

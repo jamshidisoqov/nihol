@@ -9,7 +9,28 @@ class WDialogContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width * .9,
+      height: MediaQuery.of(context).size.width * 1.1,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: Assets.png.board.provider(),
+          fit: BoxFit.fill,
+        ),
+      ),
+      child: child,
+    );
+  }
+}
+
+
+class WTvListContainer extends StatelessWidget {
+  final Widget child;
+  const WTvListContainer({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width * 1.5,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(

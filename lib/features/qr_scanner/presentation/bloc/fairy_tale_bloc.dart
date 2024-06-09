@@ -1,30 +1,26 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
-import '/core/resources/boxes.dart';
-import '/features/qr_scanner/data/model/local/fairy_tale_local.dart';
+
 import '../../data/model/fairy_tale_dto.dart';
-import '/core/resources/usecase.dart';
+import '../../data/model/qr_codes_dto.dart';
 import '../../domain/usecases/get_qr_codes.dart';
 import '../../domain/usecases/get_tales.dart';
+import '/core/resources/boxes.dart';
 import '/core/resources/enums.dart';
 import '/core/resources/failures.dart';
-import '../../data/model/qr_codes_dto.dart';
-
-part 'fairy_tale_event.dart';
-
-part 'fairy_tale_state.dart';
+import '/core/resources/usecase.dart';
+import '/features/qr_scanner/data/model/local/fairy_tale_local.dart';
 
 part 'fairy_tale_bloc.freezed.dart';
+part 'fairy_tale_event.dart';
+part 'fairy_tale_state.dart';
 
 class FairyTaleBloc extends Bloc<FairyTaleEvent, FairyTaleState> {
   final GetQRCodes getQRCodes;
   final GetTales getTales;
 
-  FairyTaleBloc({
-    required this.getTales,
-    required this.getQRCodes,
-  }) : super(const FairyTaleState()) {
+  FairyTaleBloc({required this.getTales, required this.getQRCodes})
+      : super(const FairyTaleState()) {
     on<_GetQRCodes>(_getQRCodes);
     on<_GetTales>(_getTales);
     on<_HasInLocal>(_hasInLocal);

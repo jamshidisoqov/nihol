@@ -2,14 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../pages/home_page.dart';
+import '../online_tv/online_tv_list_dialog.dart';
+import '../w_custom_button.dart';
+import '../w_switch.dart';
 import '/core/widgets/w_dialog_container.dart';
 import '/gen/assets.gen.dart';
-import '../pages/home_page.dart';
-import 'w_custom_button.dart';
-import 'w_switch.dart';
 
 class WSettingsDialog extends StatefulWidget {
   final SharedPreferences prefs;
+  final deviceNameKey = "device_name";
+  final deviceIdKey = "device_id";
+  final deviceTvSend = "send_tv";
 
   const WSettingsDialog({super.key, required this.prefs});
 
@@ -20,12 +24,14 @@ class WSettingsDialog extends StatefulWidget {
 class _WSettingsDialogState extends State<WSettingsDialog> {
   late bool isSoundOn = true;
   late bool isMusicOn = true;
+  late bool isSendTv = true;
 
   @override
   void initState() {
     super.initState();
     isSoundOn = widget.prefs.getBool('sound') ?? true;
     isMusicOn = widget.prefs.getBool('music') ?? true;
+    isSendTv = widget.prefs.getBool(widget.deviceTvSend) ?? false;
   }
 
   @override
@@ -112,6 +118,24 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
                       },
                       title: 'Sound',
                     ),
+                    WSwitch(
+                      value: isSendTv,
+                      onChanged: (v) async {
+                        final prefs = await SharedPreferences.getInstance();
+                        if (prefs.getString(widget.deviceIdKey) != null) {
+                          setState(() {
+                            isSendTv = v ?? true;
+                          });
+                          await prefs.setBool(widget.deviceTvSend, v ?? true);
+                        } else {
+                          if (v ?? true) {
+                            _showDeviceListDialog(context);
+                          }
+                        }
+                      },
+                      title: widget.prefs.getString(widget.deviceNameKey) ??
+                          "No device",
+                    )
                   ],
                 ),
               ),
@@ -137,5 +161,18 @@ class _WSettingsDialogState extends State<WSettingsDialog> {
         ),
       ),
     );
+  }
+
+  void _showDeviceListDialog(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (context.mounted) {
+      showDialog(
+        context: context,
+        useSafeArea: false,
+        builder: (BuildContext context) => OnlineTvDialog(
+          prefs: prefs,
+        ),
+      );
+    }
   }
 }

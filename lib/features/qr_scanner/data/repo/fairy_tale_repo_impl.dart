@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:nihol_app/features/home/presentation/widgets/online_tv/device_with_location_dto.dart';
 
 
 import '../datasource/remote_data_source.dart';
@@ -31,5 +32,4 @@ class FairyTaleRepoImpl extends FairyTaleRepo {
       return Left(e);
     }
   }
-
 }

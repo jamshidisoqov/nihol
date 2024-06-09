@@ -1,10 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../config/routes/app_router.gr.dart';
 import '../../../../core/widgets/w_background.dart';
 import '../../../../gen/assets.gen.dart';
@@ -37,6 +36,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    print("init State");
     WidgetsBinding.instance.addObserver(this);
     musicController();
   }
