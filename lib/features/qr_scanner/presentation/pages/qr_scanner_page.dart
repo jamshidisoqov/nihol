@@ -85,7 +85,7 @@ class _QScannerPageState extends State<QScannerPage> {
                               );
                               if (context.mounted) {
                                 if (prefs.getBool("send_tv") ?? false) {
-                                  sendTv(prefs, code ?? "");
+                                  sendTv(prefs, code ?? "",context);
                                 } else {
                                   context.router.replace(
                                     FairyTaleRoute(
@@ -109,7 +109,7 @@ class _QScannerPageState extends State<QScannerPage> {
                             } else {
                               if (context.mounted) {
                                 if (prefs.getBool("send_tv") ?? false) {
-                                  sendTv(prefs, code ?? "");
+                                  sendTv(prefs, code ?? "",context);
                                 } else {
                                   context.router.replace(
                                     FairyTaleRoute(
@@ -166,13 +166,14 @@ class _QScannerPageState extends State<QScannerPage> {
     }
   }
 
-  void sendTv(SharedPreferences prefs, String qrCode) async {
+  void sendTv(SharedPreferences prefs, String qrCode,BuildContext context) async {
     try {
       String id = prefs.getString("device_id")!;
       final ref = FirebaseDatabase.instance.ref();
       Map<String, String> map = {};
       map["qr_code"] = qrCode;
       await ref.child('device_qr_codes').child(id).set(map);
+      context.router.maybePop();
     } catch (e) {
       e.toString();
     }
