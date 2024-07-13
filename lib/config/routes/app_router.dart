@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+
 import 'app_router.gr.dart';
 import 'routes.dart';
 
@@ -31,5 +32,12 @@ class AppRouter extends $AppRouter {
           transitionsBuilder: TransitionsBuilders.fadeIn,
           durationInMilliseconds: 400,
         ),
-      ];
+        CustomRoute(
+          page: AboutTvSmartRoute.page,
+          path: Routes.scannerPage,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
+        ),
+
+  ];
 }

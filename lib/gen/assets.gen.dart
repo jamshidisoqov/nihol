@@ -113,6 +113,18 @@ class $AssetsPngGen {
   AssetGenImage get splashConainer =>
       const AssetGenImage('assets/png/splash_conainer.png');
 
+  /// File path: assets/png/step1.png
+  AssetGenImage get step1 => const AssetGenImage('assets/png/step1.png');
+
+  /// File path: assets/png/step2.png
+  AssetGenImage get step2 => const AssetGenImage('assets/png/step2.png');
+
+  /// File path: assets/png/step3.png
+  AssetGenImage get step3 => const AssetGenImage('assets/png/step3.png');
+
+  /// File path: assets/png/step4.png
+  AssetGenImage get step4 => const AssetGenImage('assets/png/step4.png');
+
   /// File path: assets/png/tv.png
   AssetGenImage get tv => const AssetGenImage('assets/png/tv.png');
 
@@ -139,6 +151,10 @@ class $AssetsPngGen {
         shareButton,
         soundOn,
         splashConainer,
+        step1,
+        step2,
+        step3,
+        step4,
         tv,
         yesButton
       ];

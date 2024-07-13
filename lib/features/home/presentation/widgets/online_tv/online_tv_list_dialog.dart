@@ -86,8 +86,7 @@ class _WSettingsDialogState extends State<OnlineTvDialog> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 280,
+                Flexible(
                   child: ListView.builder(
                     itemBuilder: (context, index) {
                       DeviceWithLocation device = deviceList[index];

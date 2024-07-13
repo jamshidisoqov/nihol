@@ -8,34 +8,41 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/foundation.dart' as _i6;
-import 'package:flutter/material.dart' as _i9;
+import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/foundation.dart' as _i7;
+import 'package:flutter/material.dart' as _i10;
 import 'package:nihol_app/features/details/presentation/pages/fairy_tale_details_page.dart'
-    as _i1;
-import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
     as _i2;
-import 'package:nihol_app/features/qr_scanner/data/model/fairy_tale_dto.dart'
-    as _i8;
-import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart'
-    as _i7;
-import 'package:nihol_app/features/qr_scanner/presentation/pages/qr_scanner_page.dart'
+import 'package:nihol_app/features/home/presentation/pages/home_page.dart'
     as _i3;
-import 'package:nihol_app/features/splash/presentation/pages/splash_page.dart'
+import 'package:nihol_app/features/qr_scanner/data/model/fairy_tale_dto.dart'
+    as _i9;
+import 'package:nihol_app/features/qr_scanner/presentation/bloc/fairy_tale_bloc.dart'
+    as _i8;
+import 'package:nihol_app/features/qr_scanner/presentation/pages/qr_scanner_page.dart'
     as _i4;
-import 'package:shared_preferences/shared_preferences.dart' as _i10;
+import 'package:nihol_app/features/splash/presentation/pages/splash_page.dart'
+    as _i5;
+import 'package:nihol_app/features/tv_smart/tv_smart_about.dart' as _i1;
+import 'package:shared_preferences/shared_preferences.dart' as _i11;
 
-abstract class $AppRouter extends _i5.RootStackRouter {
+abstract class $AppRouter extends _i6.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
+  final Map<String, _i6.PageFactory> pagesMap = {
+    AboutTvSmartRoute.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i1.AboutTvSmartPage(),
+      );
+    },
     FairyTaleRoute.name: (routeData) {
       final args = routeData.argsAs<FairyTaleRouteArgs>();
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.WrappedRoute(
-            child: _i1.FairyTalePage(
+        child: _i6.WrappedRoute(
+            child: _i2.FairyTalePage(
           key: args.key,
           qrCode: args.qrCode,
           bloc: args.bloc,
@@ -48,41 +55,55 @@ abstract class $AppRouter extends _i5.RootStackRouter {
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.HomePage(
+        child: _i3.HomePage(
           key: args.key,
           prefs: args.prefs,
         ),
       );
     },
     QScannerRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.QScannerPage(),
+        child: const _i4.QScannerPage(),
       );
     },
     SplashRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.SplashPage(),
+        child: const _i5.SplashPage(),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.FairyTalePage]
-class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
+/// [_i1.AboutTvSmartPage]
+class AboutTvSmartRoute extends _i6.PageRouteInfo<void> {
+  const AboutTvSmartRoute({List<_i6.PageRouteInfo>? children})
+      : super(
+          AboutTvSmartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AboutTvSmartRoute';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.FairyTalePage]
+class FairyTaleRoute extends _i6.PageRouteInfo<FairyTaleRouteArgs> {
   FairyTaleRoute({
-    _i6.Key? key,
+    _i7.Key? key,
     required String? qrCode,
-    required _i7.FairyTaleBloc bloc,
+    required _i8.FairyTaleBloc bloc,
     required String dirPath,
     required bool has,
-    _i8.FairyTaleDto? fairyTaleLocal,
+    _i9.FairyTaleDto? fairyTaleLocal,
     required bool isBackgroundMusicOn,
-    List<_i5.PageRouteInfo>? children,
+    List<_i6.PageRouteInfo>? children,
   }) : super(
           FairyTaleRoute.name,
           args: FairyTaleRouteArgs(
@@ -99,8 +120,8 @@ class FairyTaleRoute extends _i5.PageRouteInfo<FairyTaleRouteArgs> {
 
   static const String name = 'FairyTaleRoute';
 
-  static const _i5.PageInfo<FairyTaleRouteArgs> page =
-      _i5.PageInfo<FairyTaleRouteArgs>(name);
+  static const _i6.PageInfo<FairyTaleRouteArgs> page =
+      _i6.PageInfo<FairyTaleRouteArgs>(name);
 }
 
 class FairyTaleRouteArgs {
@@ -114,17 +135,17 @@ class FairyTaleRouteArgs {
     required this.isBackgroundMusicOn,
   });
 
-  final _i6.Key? key;
+  final _i7.Key? key;
 
   final String? qrCode;
 
-  final _i7.FairyTaleBloc bloc;
+  final _i8.FairyTaleBloc bloc;
 
   final String dirPath;
 
   final bool has;
 
-  final _i8.FairyTaleDto? fairyTaleLocal;
+  final _i9.FairyTaleDto? fairyTaleLocal;
 
   final bool isBackgroundMusicOn;
 
@@ -135,12 +156,12 @@ class FairyTaleRouteArgs {
 }
 
 /// generated route for
-/// [_i2.HomePage]
-class HomeRoute extends _i5.PageRouteInfo<HomeRouteArgs> {
+/// [_i3.HomePage]
+class HomeRoute extends _i6.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    _i9.Key? key,
-    required _i10.SharedPreferences prefs,
-    List<_i5.PageRouteInfo>? children,
+    _i10.Key? key,
+    required _i11.SharedPreferences prefs,
+    List<_i6.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
           args: HomeRouteArgs(
@@ -152,8 +173,8 @@ class HomeRoute extends _i5.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i5.PageInfo<HomeRouteArgs> page =
-      _i5.PageInfo<HomeRouteArgs>(name);
+  static const _i6.PageInfo<HomeRouteArgs> page =
+      _i6.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
@@ -162,9 +183,9 @@ class HomeRouteArgs {
     required this.prefs,
   });
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
-  final _i10.SharedPreferences prefs;
+  final _i11.SharedPreferences prefs;
 
   @override
   String toString() {
@@ -173,9 +194,9 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i3.QScannerPage]
-class QScannerRoute extends _i5.PageRouteInfo<void> {
-  const QScannerRoute({List<_i5.PageRouteInfo>? children})
+/// [_i4.QScannerPage]
+class QScannerRoute extends _i6.PageRouteInfo<void> {
+  const QScannerRoute({List<_i6.PageRouteInfo>? children})
       : super(
           QScannerRoute.name,
           initialChildren: children,
@@ -183,13 +204,13 @@ class QScannerRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'QScannerRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.SplashPage]
-class SplashRoute extends _i5.PageRouteInfo<void> {
-  const SplashRoute({List<_i5.PageRouteInfo>? children})
+/// [_i5.SplashPage]
+class SplashRoute extends _i6.PageRouteInfo<void> {
+  const SplashRoute({List<_i6.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -197,5 +218,5 @@ class SplashRoute extends _i5.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }

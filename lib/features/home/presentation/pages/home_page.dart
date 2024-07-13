@@ -96,22 +96,31 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Lottie.asset(
                               'assets/animation/scan.json',
                               fit: BoxFit.cover,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 16,
-                              ),
-                              child: WCustomButton(
-                                icon: Assets.png.searchButton
-                                    .image(width: 90, height: 90),
-                                onPressed: () => allowCamera(context),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                WCustomButton(
+                                  icon: Assets.png.searchButton
+                                      .image(width: 90, height: 90),
+                                  onPressed: () => allowCamera(context),
+                                ),
+                                WCustomButton(
+                                  icon: Assets.png.tv
+                                      .image(width: 90, height: 90),
+                                  onPressed: () => {
+                                    context.router.push(
+                                      const AboutTvSmartRoute(),
+                                    )
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ),

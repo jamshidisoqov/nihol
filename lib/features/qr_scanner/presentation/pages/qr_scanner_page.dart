@@ -26,6 +26,7 @@ class QScannerPage extends StatefulWidget {
 class _QScannerPageState extends State<QScannerPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   MobileScannerController cameraController = MobileScannerController();
+  bool isScanned = false;
 
   @override
   void dispose() {
@@ -72,20 +73,19 @@ class _QScannerPageState extends State<QScannerPage> {
                                   .cast<FairyTaleLocal>();
                           bool hasQrCodesInLocal =
                               qrCodesListInLocal.contains(code);
-
                           final dir = await getApplicationDocumentsDirectory();
                           if (hasQrCodesInLocal) {
                             LocalCheck local = hasFairyTaleInLocal(
                                 fairyTaleListInLocal, code ?? '');
                             if (local.has) {
                               bloc.add(
-                                FairyTaleEvent.hasInLocal(
-                                  local: local.taleLocal,
-                                ),
+                                FairyTaleEvent.hasInLocal(local: local.taleLocal),
                               );
                               if (context.mounted) {
-                                if (prefs.getBool("send_tv") ?? false) {
-                                  sendTv(prefs, code ?? "",context);
+                                if (prefs.getBool("send_tv") ?? false & isScanned) {
+                                  cameraController.stop();
+                                  isScanned = true;
+                                  sendTv(prefs, code ?? "", context);
                                 } else {
                                   context.router.replace(
                                     FairyTaleRoute(
@@ -108,8 +108,10 @@ class _QScannerPageState extends State<QScannerPage> {
                               }
                             } else {
                               if (context.mounted) {
-                                if (prefs.getBool("send_tv") ?? false) {
-                                  sendTv(prefs, code ?? "",context);
+                                if (prefs.getBool("send_tv") ?? false & isScanned) {
+                                  cameraController.stop();
+                                  isScanned = true;
+                                  sendTv(prefs, code ?? "", context);
                                 } else {
                                   context.router.replace(
                                     FairyTaleRoute(
@@ -166,7 +168,8 @@ class _QScannerPageState extends State<QScannerPage> {
     }
   }
 
-  void sendTv(SharedPreferences prefs, String qrCode,BuildContext context) async {
+  void sendTv(
+      SharedPreferences prefs, String qrCode, BuildContext context) async {
     try {
       String id = prefs.getString("device_id")!;
       final ref = FirebaseDatabase.instance.ref();
